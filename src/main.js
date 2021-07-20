@@ -2,11 +2,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import $ from 'jquery';
+// import $ from 'jquery';
+import jQuery from 'jquery'
+window.$ = window.jQuery = jQuery
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap'
+// import 'bootstrap/dist/js/bootstrap'
 
 import firebase from 'firebase/app';
 import auth from 'firebase/auth'
