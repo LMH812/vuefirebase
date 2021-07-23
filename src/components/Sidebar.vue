@@ -1,24 +1,29 @@
 <script>
 import auth from 'firebase/auth'
+import database from 'firebase/database'
 import { useStore, mapGetters } from 'vuex';
 import { useRouter } from 'vue-router'
 import { computed } from '@vue/runtime-core';
 import Channel from './Channel.vue'
+import User from './User.vue'
 export default {
     components: {
-        Channel
+        Channel,
+        User
     },
     setup() {
         const store = useStore();
         const router = useRouter();
+        const presenceRef = firebase.database().ref('presence')
+        const userInfo = computed(() => {
+            return store.getters.userInfo
+        })
         const logOut = () => {
+            presenceRef.child(userInfo.value.uid).remove()
             firebase.auth().signOut()
             store.dispatch('setUser', null)
             router.push('/')
         }
-        const userInfo = computed(() => {
-            return store.getters.userInfo
-        })
         return {
             logOut,
             userInfo
@@ -40,6 +45,8 @@ export default {
 
         <hr style="border: 1px solid #333">
         <Channel />
+        <hr style="border: 1px solid #333">
+        <User />
 
     </div>
 </template>

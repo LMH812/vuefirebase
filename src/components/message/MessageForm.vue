@@ -1,7 +1,7 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
-import { computed, inject } from '@vue/runtime-core';
+import { computed, inject, nextTick } from '@vue/runtime-core';
 export default {
     setup() {
         const store = useStore();
@@ -32,6 +32,9 @@ export default {
                     console.log(messagesRef);
                     messagesRef.child(currentChannel.value.id).push().set(newMessage)
                     .then((result) => {
+                        nextTick(() => {
+                            $('html, body').scrollTop($(document).height())
+                        })
                            
                     }).catch((err) => {
                         error.value.push(err.message)
@@ -54,7 +57,7 @@ export default {
 <template>
   <div>
       <div class="messageform">
-          <form>
+          <form @submit.prevent="sendMessage">
                 <div class="input-group mb-3">
                     <input 
                     type="text" 

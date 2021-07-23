@@ -27,7 +27,7 @@ export default {
 
 <template>
     <div>
-      <div class="mt-3">
+      <div class="mt-3 mb-5">
         <div v-for="items in props.messages" :key="items.timestamp">
             <div class="media">
               <img :src="items.user.avatar" height="50" alt="" class="align-self-start me-3">
