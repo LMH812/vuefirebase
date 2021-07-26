@@ -27,9 +27,11 @@ export default {
                 }
             }
             if (currentChannel.value != null) {
-                console.log(currentChannel.value.id);
+                // console.log(currentChannel.value.id);
+                console.log(newMessage);
                 if (message.value.length > 0) {
-                    console.log(messagesRef);
+                    // console.log(messagesRef);
+                    console.log(currentChannel.value.id);
                     messagesRef.child(currentChannel.value.id).push().set(newMessage)
                     .then((result) => {
                         nextTick(() => {
@@ -37,6 +39,7 @@ export default {
                         })
                            
                     }).catch((err) => {
+                        console.log(err);
                         error.value.push(err.message)
                     });
                     message.value = '';

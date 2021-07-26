@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     userInfo: null,
-    currentChannel: null
+    currentChannel: null,
+    isPrivate: false
   },
   actions: {
     setUser({commit}, user) {
@@ -11,6 +12,9 @@ export default createStore({
     },
     setCurrentChannel({commit},channel) {
       commit('SET_CURRENT_CHANNEL', channel)
+    },
+    serPrivate({commit}, isPrivate) {
+      commit('SET_PRIVATE', isPrivate)
     }
   },
   mutations: {
@@ -18,8 +22,11 @@ export default createStore({
       state.userInfo = user
     },
     SET_CURRENT_CHANNEL(state,channel) {
-      console.log(channel);
+      // console.log(channel);
       state.currentChannel = channel
+    },
+    SET_PRIVATE(state, isPrivate) {
+      state.isPrivate = isPrivate
     }
   },
   getters: {
@@ -30,7 +37,10 @@ export default createStore({
     currentChannel(state) {
       // console.log(state.currentChannel);
       return state.currentChannel
-    }
+    },
+    isPrivate(state) {
+      return state.isPrivate
+    },
   },
   modules: {
   }

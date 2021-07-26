@@ -13,6 +13,9 @@ export default {
         const currentUser = computed(() => {
             return store.getters.userInfo
         })
+        const currentChannel = computed(() => {
+            return store.getters.currentChannel
+        })
         const addListener = () => {
             usersRef.on('child_added',(snapshot) => {
                 console.log(currentUser.value.uid , snapshot.key);
@@ -58,11 +61,28 @@ export default {
         const isOnline = (user) => {
             return user.status == 'online'
         }
-        // console.log(users);
+        const changeChannel = (user) => {
+            // console.log(user.uid);
+            let channelId = getChannelId(user.uid);
+            let channel = {
+                id: channelId,
+                name: user.name
+            }
+            // console.log(channel);
+            store.dispatch('serPrivate', true)
+            store.dispatch('setCurrentChannel', channel)
+        }
+        const getChannelId = (userId) => {
+            return userId < currentUser.value.uid ? userId + '/' + currentUser.value.uid : currentUser.value.uid + '/' + userId
+        }
         const detachListeners = () => {
             usersRef.off();
             connectedRef.off();
             presenceRef.off()
+        }
+        const isActive = (user) => {
+            let channelId = getChannelId(user.uid)
+            return currentChannel.value.id == channelId
         }
         onMounted(() => {
             addListener()
@@ -72,7 +92,9 @@ export default {
         })
         return {
             users,
-            isOnline
+            isOnline,
+            changeChannel,
+            isActive
         }
     }
 }
@@ -81,18 +103,30 @@ export default {
     <div>
         <div class="text-light">
             <h4>Users</h4>
-            <ul class="nav flex-column">
-                <li v-for="items in users" :key="items.uid">
+            <div class="mt-4">
+                <button 
+                class="list-group-item list-group-item-action" 
+                type="button" 
+                v-for="(items,idx) in users" 
+                :key="idx" 
+                :class="{'active': isActive(items)}" 
+                @click.prevent="changeChannel(items)">
+                    <span class="me-1" :class="{'fas fa-circle online' : isOnline(items),'fas fa-circle offline' : !isOnline(items)}"></span>
                     <span>
                         <img :src="items.avatar" height="20" alt="" class="rounded-circle">
-                        <span :class="{'text-primary' : isOnline(items),'text-danger' : !isOnline(items)}">{{ items.name }}</span>
+                        <span><a href="#" :class="{'text-light' : isActive(items)}">{{ items.name }}</a></span>
                     </span>
-                </li>
-            </ul>
+                </button>
+            </div>
         </div>
     </div>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+    .online {
+        color: green;
+    }
+    .offline {
+        color: red;
+    }
 </style>
