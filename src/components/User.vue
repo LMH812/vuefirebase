@@ -69,11 +69,11 @@ export default {
                 name: user.name
             }
             // console.log(channel);
-            store.dispatch('serPrivate', true)
+            store.dispatch('setPrivate', true)
             store.dispatch('setCurrentChannel', channel)
         }
         const getChannelId = (userId) => {
-            return userId < currentUser.value.uid ? userId + '/' + currentUser.value.uid : currentUser.value.uid + '/' + userId
+            return userId < currentUser.value.uid ? userId+'/'+currentUser.value.uid : currentUser.value.uid+'/'+userId
         }
         const detachListeners = () => {
             usersRef.off();

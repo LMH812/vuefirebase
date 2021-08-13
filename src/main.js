@@ -15,7 +15,6 @@ import auth from 'firebase/auth'
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyAA5BhCNK-BOzFTKtlE4228UKps34knbO4",
-    authDomain: "vuefirebase-5602f.firebaseapp.com",
     projectId: "vuefirebase-5602f",
     storageBucket: "vuefirebase-5602f.appspot.com",
     messagingSenderId: "951054366724",

@@ -57,7 +57,7 @@ export default {
             return channel.id == currentChannel.value.id
         }
         const changeChannel = (channel) => {
-            store.dispatch('serPrivate', false)
+            store.dispatch('setPrivate', false)
             store.dispatch('setCurrentChannel', channel)
         }
         onMounted(() => {

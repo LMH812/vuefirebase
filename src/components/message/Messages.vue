@@ -31,7 +31,7 @@ export default {
         })
         const addListeners = () => {
             let ref = getMessagesRef()
-            console.log(currentChannel.value.id);
+            // console.log(currentChannel.value.id);
             ref.child(currentChannel.value.id).on('child_added', (snapshot) => {
                 let message = snapshot.val()
                 message['id'] = snapshot.key
@@ -44,10 +44,8 @@ export default {
         }
         const getMessagesRef = () => {
             if (isPrivate.value) {
-                console.log(1);
                 return privateMessagesRef
             } else {
-                console.log(2);
                 return messagesRef
             }
         }

@@ -13,7 +13,7 @@ export default createStore({
     setCurrentChannel({commit},channel) {
       commit('SET_CURRENT_CHANNEL', channel)
     },
-    serPrivate({commit}, isPrivate) {
+    setPrivate({commit}, isPrivate) {
       commit('SET_PRIVATE', isPrivate)
     }
   },

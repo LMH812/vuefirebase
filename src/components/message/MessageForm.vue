@@ -28,12 +28,14 @@ export default {
             }
             if (currentChannel.value != null) {
                 // console.log(currentChannel.value.id);
-                console.log(newMessage);
+                console.log(messagesRef);
                 if (message.value.length > 0) {
                     // console.log(messagesRef);
                     console.log(currentChannel.value.id);
+                    console.log(newMessage);
                     messagesRef.child(currentChannel.value.id).push().set(newMessage)
                     .then((result) => {
+                        console.log(result);
                         nextTick(() => {
                             $('html, body').scrollTop($(document).height())
                         })
